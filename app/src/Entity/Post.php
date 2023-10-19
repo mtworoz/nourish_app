@@ -28,9 +28,13 @@ class Post
     #[ORM\OneToMany(mappedBy: 'post', targetEntity: Comment::class, orphanRemoval: true)]
     private Collection $comments;
 
+    #[ORM\OneToMany(mappedBy: 'post', targetEntity: Recipe::class)]
+    private Collection $recipe;
+
     public function __construct()
     {
         $this->comments = new ArrayCollection();
+        $this->recipe = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -98,6 +102,36 @@ class Post
             // set the owning side to null (unless already changed)
             if ($comment->getPost() === $this) {
                 $comment->setPost(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Recipe>
+     */
+    public function getRecipe(): Collection
+    {
+        return $this->recipe;
+    }
+
+    public function addRecipe(Recipe $recipe): static
+    {
+        if (!$this->recipe->contains($recipe)) {
+            $this->recipe->add($recipe);
+            $recipe->setPost($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRecipe(Recipe $recipe): static
+    {
+        if ($this->recipe->removeElement($recipe)) {
+            // set the owning side to null (unless already changed)
+            if ($recipe->getPost() === $this) {
+                $recipe->setPost(null);
             }
         }
 
