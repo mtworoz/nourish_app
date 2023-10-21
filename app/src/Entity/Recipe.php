@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\RecipeRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: RecipeRepository::class)]
@@ -23,6 +24,9 @@ class Recipe
 
     #[ORM\ManyToOne(inversedBy: 'recipe')]
     private ?Post $post = null;
+
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
+    private ?string $instruction = null;
 
     public function __construct()
     {
@@ -78,6 +82,18 @@ class Recipe
     public function setPost(?Post $post): static
     {
         $this->post = $post;
+
+        return $this;
+    }
+
+    public function getInstruction(): ?string
+    {
+        return $this->instruction;
+    }
+
+    public function setInstruction(?string $instruction): static
+    {
+        $this->instruction = $instruction;
 
         return $this;
     }
