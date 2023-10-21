@@ -28,7 +28,7 @@ class Post
     #[ORM\OneToMany(mappedBy: 'post', targetEntity: Comment::class, orphanRemoval: true)]
     private Collection $comments;
 
-    #[ORM\OneToMany(mappedBy: 'post', targetEntity: Recipe::class)]
+    #[ORM\OneToMany(mappedBy: 'post', targetEntity: Recipe::class, fetch: "EAGER")]
     private Collection $recipes;
 
     public function __construct()
