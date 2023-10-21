@@ -29,12 +29,12 @@ class Post
     private Collection $comments;
 
     #[ORM\OneToMany(mappedBy: 'post', targetEntity: Recipe::class)]
-    private Collection $recipe;
+    private Collection $recipes;
 
     public function __construct()
     {
         $this->comments = new ArrayCollection();
-        $this->recipe = new ArrayCollection();
+        $this->recipes = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -111,15 +111,15 @@ class Post
     /**
      * @return Collection<int, Recipe>
      */
-    public function getRecipe(): Collection
+    public function getRecipes(): Collection
     {
-        return $this->recipe;
+        return $this->recipes;
     }
 
     public function addRecipe(Recipe $recipe): static
     {
-        if (!$this->recipe->contains($recipe)) {
-            $this->recipe->add($recipe);
+        if (!$this->recipes->contains($recipe)) {
+            $this->recipes->add($recipe);
             $recipe->setPost($this);
         }
 
@@ -128,7 +128,7 @@ class Post
 
     public function removeRecipe(Recipe $recipe): static
     {
-        if ($this->recipe->removeElement($recipe)) {
+        if ($this->recipes->removeElement($recipe)) {
             // set the owning side to null (unless already changed)
             if ($recipe->getPost() === $this) {
                 $recipe->setPost(null);
