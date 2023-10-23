@@ -27,6 +27,15 @@ class Ingredient
     #[ORM\OneToMany(mappedBy: 'ingredient', targetEntity: RecipeIngredient::class)]
     private Collection $recipeIngredients;
 
+    #[ORM\Column(nullable: true)]
+    private ?float $proteins = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?float $fats = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?float $carbohydrates = null;
+
     public function __construct()
     {
         $this->recipeIngredients = new ArrayCollection();
@@ -99,6 +108,42 @@ class Ingredient
                 $recipeIngredient->setIngredient(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getProteins(): ?float
+    {
+        return $this->proteins;
+    }
+
+    public function setProteins(?float $proteins): static
+    {
+        $this->proteins = $proteins;
+
+        return $this;
+    }
+
+    public function getFats(): ?float
+    {
+        return $this->fats;
+    }
+
+    public function setFats(?float $fats): static
+    {
+        $this->fats = $fats;
+
+        return $this;
+    }
+
+    public function getCarbohydrates(): ?float
+    {
+        return $this->carbohydrates;
+    }
+
+    public function setCarbohydrates(?float $carbohydrates): static
+    {
+        $this->carbohydrates = $carbohydrates;
 
         return $this;
     }
