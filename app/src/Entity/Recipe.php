@@ -19,8 +19,6 @@ class Recipe
     #[ORM\Column(length: 255)]
     private ?string $title = null;
 
-    #[ORM\ManyToMany(targetEntity: Ingredient::class, inversedBy: 'recipes')]
-    private Collection $ingredients;
 
     #[ORM\ManyToOne(inversedBy: 'recipe')]
     private ?Post $post = null;
@@ -28,9 +26,12 @@ class Recipe
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $instruction = null;
 
+    #[ORM\OneToMany(mappedBy: 'recipe', targetEntity: RecipeIngredient::class)]
+    private Collection $recipeIngredients;
+
     public function __construct()
     {
-        $this->ingredients = new ArrayCollection();
+        $this->recipeIngredients = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -46,30 +47,6 @@ class Recipe
     public function setTitle(string $title): static
     {
         $this->title = $title;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, Ingredient>
-     */
-    public function getIngredients(): Collection
-    {
-        return $this->ingredients;
-    }
-
-    public function addIngredient(Ingredient $ingredient): static
-    {
-        if (!$this->ingredients->contains($ingredient)) {
-            $this->ingredients->add($ingredient);
-        }
-
-        return $this;
-    }
-
-    public function removeIngredient(Ingredient $ingredient): static
-    {
-        $this->ingredients->removeElement($ingredient);
 
         return $this;
     }
@@ -94,6 +71,36 @@ class Recipe
     public function setInstruction(?string $instruction): static
     {
         $this->instruction = $instruction;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, RecipeIngredient>
+     */
+    public function getRecipeIngredients(): Collection
+    {
+        return $this->recipeIngredients;
+    }
+
+    public function addRecipeIngredient(RecipeIngredient $recipeIngredients): static
+    {
+        if (!$this->recipeIngredients->contains($recipeIngredients)) {
+            $this->recipeIngredients->add($recipeIngredients);
+            $recipeIngredients->setRecipe($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRecipeIngredient(RecipeIngredient $recipeIngredients): static
+    {
+        if ($this->recipeIngredients->removeElement($recipeIngredients)) {
+            // set the owning side to null (unless already changed)
+            if ($recipeIngredients->getRecipe() === $this) {
+                $recipeIngredients->setRecipe(null);
+            }
+        }
 
         return $this;
     }
