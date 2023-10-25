@@ -1,12 +1,19 @@
-{% for recipe in post.recipes %}
-<div class="recipe">
-    <h1>{{ recipe.title }}</h1>
-
-    <ul>
-    {% for ingredient in recipe.ingredients %}
-        <li>{{ ingredient.name }}</li>
-    {% endfor %}
-    </ul>
-    <div>{{ recipe.instruction }}</div>
-</div>
+{% for recipe in recipes %}
+    <div class="card col-10 col-lg-4 bg-light">
+        <div class="card-body">
+            <h5 class="card-title">{{ recipe.title }}</h5>
+            <p class="card-text">{{ recipe.instruction }}</p>
+        </div>
+        <ul class="list-group list-group-flush">
+            {% for recipeIngredient in recipe.recipeIngredients %}
+                <li class="list-group-item bg-light">
+                    {{ recipeIngredient.ingredient.name }} - {{ recipeIngredient.weight }} g
+                </li>
+            {% endfor %}
+        </ul>
+        <div class="card-body">
+            <a href="#" class="card-link">Card link</a>
+            <a href="#" class="card-link">Another link</a>
+        </div>
+    </div>
 {% endfor %}

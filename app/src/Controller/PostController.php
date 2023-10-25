@@ -12,7 +12,7 @@ class PostController extends AbstractController
 {
     #[Route('/post/{id}', name: 'post')]
     public function showPost(Post $post){
-        return $this->render('recipe.html.twig', ['post' => $post]);
+        return $this->render('post.html.twig', ['post' => $post]);
     }
 
     #[Route('/posts', name: 'allPosts')]
