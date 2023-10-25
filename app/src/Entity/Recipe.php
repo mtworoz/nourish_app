@@ -29,6 +29,9 @@ class Recipe
     #[ORM\OneToMany(mappedBy: 'recipe', targetEntity: RecipeIngredient::class)]
     private Collection $recipeIngredients;
 
+    #[ORM\Column(nullable: true)]
+    private ?int $preparationTime = null;
+
     public function __construct()
     {
         $this->recipeIngredients = new ArrayCollection();
@@ -101,6 +104,18 @@ class Recipe
                 $recipeIngredients->setRecipe(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getPreparationTime(): ?int
+    {
+        return $this->preparationTime;
+    }
+
+    public function setPreparationTime(?int $preparationTime): static
+    {
+        $this->preparationTime = $preparationTime;
 
         return $this;
     }
