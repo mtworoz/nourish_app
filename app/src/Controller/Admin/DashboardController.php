@@ -3,6 +3,7 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Post;
+use App\Entity\Recipe;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractDashboardController;
@@ -41,7 +42,8 @@ class DashboardController extends AbstractDashboardController
 
     public function configureMenuItems(): iterable
     {
-        yield MenuItem::linkToDashboard('Dashboard', 'fa fa-home');
-        yield MenuItem::linkToCrud('Post', 'fas fa-list', Post::class);
+        yield MenuItem::linkToDashboard('Panel', 'fa fa-home');
+        yield MenuItem::linkToCrud('Posty', 'fas fa-list', Post::class);
+        yield MenuItem::linkToCrud('Przepisy', 'fas fa-list', Recipe::class);
     }
 }
