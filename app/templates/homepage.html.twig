@@ -7,22 +7,12 @@
                 <a href="single-post.html" class="feature-post-item">
                     <span>Kategorie</span>
                 </a>
+                {% for category in categories %}
                 <a href="single-post.html" class="feature-post-item">
                     <img src="{{ asset('build/images/img-1.10f81faa.jpg') }}" class="w-100" alt="">
-                    <div class="feature-post-caption">Incidunt Quaerat</div>
+                    <div class="feature-post-caption text-uppercase">{{ category.name }}</div>
                 </a>
-                <a href="single-post.html" class="feature-post-item">
-                    <img src="{{ asset('build/images/img-1.10f81faa.jpg') }}" class="w-100" alt="">
-                    <div class="feature-post-caption">Culpa Ducimus</div>
-                </a>
-                <a href="single-post.html" class="feature-post-item">
-                    <img src="{{ asset('build/images/img-1.10f81faa.jpg') }}" class="w-100" alt="">
-                    <div class="feature-post-caption">Temporibus Simile</div>
-                </a>
-                <a href="single-post.html" class="feature-post-item">
-                    <img src="{{ asset('build/images/img-1.10f81faa.jpg') }}" class="w-100" alt="">
-                    <div class="feature-post-caption">Adipisicing</div>
-                </a>
+                {% endfor %}
             </div>
         </section>
         <hr>
