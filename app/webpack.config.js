@@ -21,6 +21,8 @@ Encore
      * and one CSS file (e.g. app.css) if your JavaScript imports CSS.
      */
     .addEntry('scripts', './assets/js/app.js')
+    .addEntry('popper', 'popper.js')
+    .addEntry('bootstrap', 'bootstrap')
     .addStyleEntry('styles', './assets/scss/app.scss')
 
     // When enabled, Webpack "splits" your files into smaller pieces for greater optimization.
@@ -73,7 +75,7 @@ Encore
     //.enableIntegrityHashes(Encore.isProduction())
 
     // uncomment if you're having problems with a jQuery plugin
-    //.autoProvidejQuery()
+    .autoProvidejQuery()
 ;
 
 module.exports = Encore.getWebpackConfig();
