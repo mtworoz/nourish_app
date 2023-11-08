@@ -5,9 +5,9 @@
         <section>
             <div class="feature-posts">
                 <a href="single-post.html" class="feature-post-item">
-                    <span>Kategorie</span>
+                    <span>Glówne Kategorie</span>
                 </a>
-                {% for category in categories %}
+                {% for category in categories|slice(0, 4) %}
                 <a href="single-post.html" class="feature-post-item">
                     <img src="{{ asset('build/images/img-1.10f81faa.jpg') }}" class="w-100" alt="">
                     <div class="feature-post-caption text-uppercase">{{ category.name }}</div>
