@@ -8,7 +8,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
-use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
+
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 
 class PostCrudController extends AbstractCrudController
@@ -18,12 +18,14 @@ class PostCrudController extends AbstractCrudController
         return Post::class;
     }
 
+    
     public function configureCrud(Crud $crud): Crud
     {
         $crud->setFormThemes([
             '@FOSCKEditor/Form/ckeditor_widget.html.twig',
             '@EasyAdmin/crud/form_theme.html.twig'
         ]);
+
         return $crud;
     }
 
@@ -38,3 +40,4 @@ class PostCrudController extends AbstractCrudController
     }
 
 }
+
