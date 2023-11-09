@@ -19,6 +19,16 @@ class PostCrudController extends AbstractCrudController
         return Post::class;
     }
 
+    public function createEntity(string $entityFqcn)
+    {
+        $entity = parent::createEntity($entityFqcn);
+
+        if ($entity instanceof Post){
+            $entity->setDate(new \DateTime());
+        }
+
+        return $entity;
+    }
 
     public function configureCrud(Crud $crud): Crud
     {
