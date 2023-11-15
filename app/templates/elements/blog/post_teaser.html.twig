@@ -12,11 +12,11 @@
                 <span class="px-2">-</span>
                 <a href="#" class="text-muted">Komentarze: {{ post.comments|length }}</a>
             </small>
-            <p class="my-2">{{ post.content|escape|slice(0,255) }}...</p>
+            <p class="my-2">{{ post.content|escape|slice(0,255) }} (...)</p>
         </div>
 
         <div class="card-footer p-0 text-center">
-            <a href="single-post.html" class="btn btn-outline-dark btn-sm">czytaj więcej</a>
+            <a href={{ path('single_post', {'id': post.id}) }} class="btn btn-outline-dark btn-sm">czytaj więcej</a>
         </div>
     </div>
 </div>

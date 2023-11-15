@@ -10,9 +10,9 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class PostController extends AbstractController
 {
-    #[Route('/post/{id}', name: 'post')]
+    #[Route('/post/{id}', name: 'single_post')]
     public function showPost(Post $post){
-        return $this->render('post.html.twig', ['post' => $post]);
+        return $this->render('pages/post.html.twig', ['post' => $post]);
     }
 
     #[Route('/posts', name: 'allPosts')]

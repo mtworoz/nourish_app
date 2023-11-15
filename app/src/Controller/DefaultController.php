@@ -11,11 +11,10 @@ use Symfony\Component\Routing\Annotation\Route;
 class DefaultController extends AbstractController
 {
     #[Route('/', name: 'homepage')]
-    public function homepage(CategoryRepository $categoryRepository, PostRepository $postRepository) : Response
+    public function homepage(PostRepository $postRepository) : Response
     {
         $recentPosts = $postRepository->findBy([],['date' => 'DESC'],6);
-        return $this->render('homepage.html.twig', [
-            'categories' => $categoryRepository->findAll(),
+        return $this->render('pages/homepage.html.twig', [
             'posts' => $recentPosts
         ]);
     }
