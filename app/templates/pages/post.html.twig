@@ -1,14 +1,9 @@
 {% extends "pages/base.html.twig" %}
 
 {% block body %}
-{#    {% include 'elements/blog/recipe.html.twig' with {'recipes' : post.recipes} %}#}
     <!-- Page Header -->
     <header class="page-header page-header-mini">
         <h1 class="title">{{ post.title }}</h1>
-        <ol class="breadcrumb pb-0">
-            <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-            <li class="breadcrumb-item active" aria-current="page">{{ post.title }}</li>
-        </ol>
     </header>
     <!-- End Of Page Header -->
 
@@ -16,21 +11,7 @@
         <div class="page-container">
             <div class="page-content">
                 <div class="card">
-                    <div class="card-header pt-0">
-                        <h3 class="card-title mb-4">{{ post.title }}</h3>
-                        <div class="blog-media mb-4">
-                            <img src="{{ asset('post_images/' ~ post.image) }}" alt="" class="w-100">
-                            <a href="#" class="badge badge-primary">#Salupt</a>
-                        </div>
-                        <small class="small text-muted">
-                            <span>{{ post.date|date("d.m.Y") }}</span>
-                            <span class="px-2">·</span>
-                            <a href="#" class="text-muted">Komentarze: {{ post.comments|length }}</a>
-                        </small>
-                    </div>
-                    <div class="card-body border-top">
-                        {{ post.content|raw }}
-                    </div>
+                    {% include 'elements/blog/single_post.html.twig'%}
 
                     <div class="card-footer">
                         <h6 class="mt-5 mb-3 text-center"><a href="#" class="text-dark">Komentarze: {{ post.comments|length }}</a></h6>

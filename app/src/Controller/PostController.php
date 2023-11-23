@@ -15,6 +15,7 @@ class PostController extends AbstractController
     public function showPost(Post $post): Response
     {
         $commentForm = $this->createForm(WriteCommentFormType::class);
+        
         return $this->render('pages/post.html.twig', [
             'post' => $post,
             'commentForm' => $commentForm
