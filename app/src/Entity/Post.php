@@ -31,6 +31,9 @@ class Post
     #[ORM\OneToMany(mappedBy: 'post', targetEntity: Recipe::class, fetch: "EAGER")]
     private Collection $recipes;
 
+    #[ORM\Column(length: 255)]
+    private ?string $image = null;
+
     public function __construct()
     {
         $this->comments = new ArrayCollection();
@@ -134,6 +137,18 @@ class Post
                 $recipe->setPost(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getImage(): ?string
+    {
+        return $this->image;
+    }
+
+    public function setImage(string $image): static
+    {
+        $this->image = $image;
 
         return $this;
     }

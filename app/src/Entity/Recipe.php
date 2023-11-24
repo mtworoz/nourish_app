@@ -32,9 +32,13 @@ class Recipe
     #[ORM\Column(nullable: true)]
     private ?int $preparationTime = null;
 
+    #[ORM\ManyToMany(targetEntity: Category::class, mappedBy: 'recipe')]
+    private Collection $categories;
+
     public function __construct()
     {
         $this->recipeIngredients = new ArrayCollection();
+        $this->categories = new ArrayCollection();
     }
 
     public function __toString(){
@@ -120,6 +124,33 @@ class Recipe
     public function setPreparationTime(?int $preparationTime): static
     {
         $this->preparationTime = $preparationTime;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Category>
+     */
+    public function getCategories(): Collection
+    {
+        return $this->categories;
+    }
+
+    public function addCategory(Category $category): static
+    {
+        if (!$this->categories->contains($category)) {
+            $this->categories->add($category);
+            $category->addRecipe($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCategory(Category $category): static
+    {
+        if ($this->categories->removeElement($category)) {
+            $category->removeRecipe($this);
+        }
 
         return $this;
     }

@@ -1,0 +1,30 @@
+{% extends "pages/base.html.twig" %}
+
+{% block body %}
+    {% include 'elements/header.html.twig' %}
+    <div class="container">
+        <section>
+            <div class="feature-posts">
+                <a href="single-post.html" class="feature-post-item">
+                    <span>Glówne Kategorie</span>
+                </a>
+                {% for category in getRecipesCategories()|slice(0, 4) %}
+                <a href="single-post.html" class="feature-post-item">
+                    <img src="{{ asset('build/images/img-1.10f81faa.jpg') }}" class="w-100" alt="">
+                    <div class="feature-post-caption text-uppercase">{{ category.name }}</div>
+                </a>
+                {% endfor %}
+            </div>
+        </section>
+        <hr>
+        <div class="page-container">
+            <div class="page-content">
+                <div class="row">
+                    {% for post in posts %}
+                        {% include 'elements/blog/post_teaser.html.twig' %}
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

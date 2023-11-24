@@ -1,0 +1,43 @@
+/*!
+=========================================================
+* JoeBlog Landing page
+=========================================================
+
+* Copyright: 2019 DevCRUD (https://devcrud.com)
+* Licensed: (https://devcrud.com/licenses)
+* Coded by www.devcrud.com
+
+=========================================================
+
+* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+*/
+
+// custom variables
+@import "abstracts/variables";
+
+@import "abstracts/mixins";
+
+// Bootstrap 4.3.1
+@import '~bootstrap/scss/bootstrap';
+
+// custom 
+@import "base/typography";
+@import "base/utilities";
+
+@import "components/alert";
+@import "components/breadcrumb";
+@import "components/buttons";
+@import "components/cards";
+@import "components/code";
+@import "components/dropdowns";
+@import "components/forms";
+@import "components/image";
+@import "components/navbars";
+@import "components/pagination";
+@import "components/progress";
+@import "components/scrollbar";
+@import "components/table";
+
+@import "layout/footer";
+@import "layout/header";
+@import "layout/sections";
