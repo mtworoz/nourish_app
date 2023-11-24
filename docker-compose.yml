@@ -1,7 +1,8 @@
 version: '3'
 
 networks:
-  nginx-php82-mysql8-node:
+  blog_network:
+    driver: bridge
 
 services:
 
@@ -18,7 +19,7 @@ services:
       - php82-service
       - mysql8-service
     networks:
-      - nginx-php82-mysql8-node
+      - blog_network
 
   #php
   php82-service:
@@ -31,7 +32,7 @@ services:
     volumes:
       - ./app:/var/www/project
     networks:
-      - nginx-php82-mysql8-node
+      - blog_network
 
   #mysql
   mysql8-service:
@@ -47,7 +48,7 @@ services:
       MYSQL_ROOT_PASSWORD: secret
       MYSQL_PASSWORD: secret
     networks:
-      - nginx-php82-mysql8-node
+      - blog_network
 
 
   #node
@@ -58,4 +59,4 @@ services:
       - ./app:/var/www/project
     working_dir: /var/www/project
     networks:
-      - nginx-php82-mysql8-node
+      - blog_network
