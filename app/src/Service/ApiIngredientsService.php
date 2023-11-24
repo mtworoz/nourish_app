@@ -10,13 +10,13 @@ class ApiIngredientsService
     public function get(){
         $client = HttpClient::create();
 
-        $apiUrl = 'http://localhost:8088/api/nutrients';
+        $apiUrl = 'http://nginx-service-macromap/api/products';
 
         $response = $client->request('GET', $apiUrl);
 
         $statusCode = $response->getStatusCode();
 
-        $data = $response->toArray();
+        $data = $response->getContent();
 
         return new Response(json_encode($data), $statusCode);
     }
