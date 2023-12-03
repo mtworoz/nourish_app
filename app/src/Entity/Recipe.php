@@ -19,7 +19,6 @@ class Recipe
     #[ORM\Column(length: 255)]
     private ?string $title = null;
 
-
     #[ORM\ManyToOne(inversedBy: 'recipe')]
     private ?Post $post = null;
 

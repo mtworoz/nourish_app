@@ -6,6 +6,7 @@ use App\Admin\Field\CKEditorField;
 use App\Entity\Recipe;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
+use EasyCorp\Bundle\EasyAdminBundle\Field\CollectionField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\NumberField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
@@ -34,6 +35,10 @@ class RecipeCrudController extends AbstractCrudController
             TextField::new('title'),
             CKEditorField::new('instruction'),
             NumberField::new('preparationTime'),
+            CollectionField::new('recipeIngredients')
+                ->useEntryCrudForm()
+                ->setFormTypeOption('by_reference', false)
+                ->onlyOnForms(),
         ];
     }
 }
