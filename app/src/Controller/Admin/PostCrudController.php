@@ -47,7 +47,9 @@ class PostCrudController extends AbstractCrudController
             Field::new('date')->onlyOnIndex(),
             TextField::new('title'),
             CKEditorField::new('content'),
-            AssociationField::new('recipes')->onlyOnForms()->autocomplete(),
+            AssociationField::new('recipes')
+                ->onlyOnForms()
+                ->autocomplete(),
             ImageField::new('image')
                 ->setUploadDir('public/post_images')
                 ->setBasePath('post_images')

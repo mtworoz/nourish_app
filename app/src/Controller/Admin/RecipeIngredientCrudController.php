@@ -17,8 +17,10 @@ class RecipeIngredientCrudController extends AbstractCrudController
     public function configureFields(string $pageName): iterable
     {
         return [
-            AssociationField::new('ingredient'),
+            AssociationField::new('ingredient')
+                ->setColumns(6),
             NumberField::new('weight')
+                ->setColumns(6),
         ];
     }
 }
