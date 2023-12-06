@@ -31,7 +31,7 @@ class Recipe
     #[ORM\Column(nullable: true)]
     private ?int $preparationTime = null;
 
-    #[ORM\ManyToMany(targetEntity: Category::class, mappedBy: 'recipe')]
+    #[ORM\ManyToMany(targetEntity: Category::class, mappedBy: 'recipes')]
     private Collection $categories;
 
     public function __construct()

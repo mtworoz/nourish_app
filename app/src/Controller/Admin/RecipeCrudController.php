@@ -8,6 +8,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
+use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\CollectionField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\NumberField;
@@ -22,14 +23,14 @@ class RecipeCrudController extends AbstractCrudController
 
     public function configureCrud(Crud $crud): Crud
     {
-        $crud->setFormThemes([
-            '@FOSCKEditor/Form/ckeditor_widget.html.twig',
-            '@EasyAdmin/crud/form_theme.html.twig'
-        ])
-        ->setPageTitle('index', 'Przepisy')
-        ->setPageTitle('new', 'Nowy przepis')
-        ->setPageTitle('edit', 'Edytuj przepis')
-        ->setPageTitle('detail', 'Szczegóły przepisu');
+        $crud
+            ->setFormThemes([
+                '@FOSCKEditor/Form/ckeditor_widget.html.twig',
+                '@EasyAdmin/crud/form_theme.html.twig'
+            ])
+            ->setPageTitle('index', 'Przepisy')
+            ->setPageTitle('new', 'Nowy przepis')
+            ->setPageTitle('edit', 'Edytuj przepis');
 
         return $crud;
     }
@@ -40,16 +41,26 @@ class RecipeCrudController extends AbstractCrudController
             IdField::new('id')
                 ->onlyOnIndex(),
             TextField::new('title')
-                ->setLabel('Tytuł'),
+                ->setLabel('Tytuł')
+                ->setColumns(12),
             CKEditorField::new('instruction')
-                ->setLabel('Instrukcja'),
+                ->setLabel('Instrukcja')
+                ->setColumns(12),
             NumberField::new('preparationTime')
-                ->setLabel('Czas przygotowania'),
+                ->setLabel('Czas przygotowania')
+                ->setColumns(8),
+            AssociationField::new('categories')
+                ->setLabel('Kategorie')
+                ->setColumns(12)
+                ->setFormTypeOption('multiple', true)
+                ->setFormTypeOption('by_reference', false),
             CollectionField::new('recipeIngredients')
                 ->useEntryCrudForm()
                 ->setFormTypeOption('by_reference', false)
                 ->onlyOnForms()
-                ->setLabel('Składniki'),
+                ->setLabel('Składniki')
+                ->setColumns(12)
+                ->allowAdd()
         ];
     }
 
