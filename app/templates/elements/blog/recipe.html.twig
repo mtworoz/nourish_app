@@ -14,7 +14,7 @@
             </ul>
         </div>
         <div class="card-body">
-            <p>{{ recipe.instruction }}</p>
+            <p>{{ recipe.instruction | raw}}</p>
         </div>
     </div>
 {% endfor %}

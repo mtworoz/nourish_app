@@ -18,9 +18,12 @@ class RecipeIngredientCrudController extends AbstractCrudController
     {
         return [
             AssociationField::new('ingredient')
-                ->setColumns(6),
+                ->setColumns(6)
+                ->setLabel('Składnik'),
             NumberField::new('weight')
-                ->setColumns(6),
+                ->setColumns(6)
+                ->setLabel('Waga')
+
         ];
     }
 }
