@@ -12,9 +12,8 @@ use Symfony\Component\Routing\Annotation\Route;
 class DefaultController extends AbstractController
 {
     #[Route('/', name: 'homepage')]
-    public function homepage(PostRepository $postRepository, ApiIngredientsService $apiIngredientsService) : Response
+    public function homepage(PostRepository $postRepository) : Response
     {
-        dd($apiIngredientsService->get());
         $recentPosts = $postRepository->findBy([],['date' => 'DESC'],6);
         return $this->render('pages/homepage.html.twig', [
             'posts' => $recentPosts

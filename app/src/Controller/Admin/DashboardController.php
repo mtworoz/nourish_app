@@ -2,6 +2,7 @@
 
 namespace App\Controller\Admin;
 
+use App\Entity\Ingredient;
 use App\Entity\Post;
 use App\Entity\Recipe;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
@@ -45,5 +46,6 @@ class DashboardController extends AbstractDashboardController
     {
         yield MenuItem::linkToCrud('Posty', 'fas fa-list', Post::class);
         yield MenuItem::linkToCrud('Przepisy', 'fas fa-list', Recipe::class);
+        yield MenuItem::linkToCrud('Składniki', 'fas fa-list', Ingredient::class);
     }
 }
