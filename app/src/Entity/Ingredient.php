@@ -28,13 +28,13 @@ class Ingredient
     #[ORM\OneToMany(mappedBy: 'ingredient', targetEntity: RecipeIngredient::class)]
     private Collection $recipeIngredients;
 
-    #[ORM\Column(nullable: true)]
+    #[ORM\Column]
     private ?float $proteins = null;
 
-    #[ORM\Column(nullable: true)]
+    #[ORM\Column]
     private ?float $fats = null;
 
-    #[ORM\Column(nullable: true)]
+    #[ORM\Column]
     private ?float $carbohydrates = null;
 
     public function __construct()

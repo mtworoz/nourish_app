@@ -49,6 +49,9 @@ class RecipeCrudController extends AbstractCrudController
             NumberField::new('preparationTime')
                 ->setLabel('Czas przygotowania')
                 ->setColumns(8),
+            NumberField::new('servings')
+                ->setLabel('Porcje')
+                ->hideOnIndex(),
             AssociationField::new('categories')
                 ->setLabel('Kategorie')
                 ->setColumns(12)

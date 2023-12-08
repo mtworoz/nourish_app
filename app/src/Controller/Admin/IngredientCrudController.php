@@ -5,8 +5,8 @@ namespace App\Controller\Admin;
 use App\Entity\Ingredient;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
-use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\NumberField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 
 class IngredientCrudController extends AbstractCrudController
 {
@@ -29,14 +29,20 @@ class IngredientCrudController extends AbstractCrudController
     public function configureFields(string $pageName): iterable
     {
         return [
+            TextField::new('name')
+                ->setLabel('Nazwa'),
             NumberField::new('kcalPer100g')
-                ->setLabel('Kcal na 100g'),
+                ->setLabel('Kcal na 100g')
+                ->setRequired(true),
             NumberField::new('Proteins')
-                ->setLabel('Białko'),
+                ->setLabel('Białko')
+                ->setRequired(true),
             NumberField::new('Carbohydrates')
-                ->setLabel('Węglowodany'),
+                ->setLabel('Węglowodany')
+                ->setRequired(true),
             NumberField::new('Fats')
-                ->setLabel('Tłuszcze'),
+                ->setLabel('Tłuszcze')
+                ->setRequired(true),
             ];
 
 

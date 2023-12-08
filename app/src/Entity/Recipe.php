@@ -34,6 +34,9 @@ class Recipe
     #[ORM\ManyToMany(targetEntity: Category::class, mappedBy: 'recipes')]
     private Collection $categories;
 
+    #[ORM\Column]
+    private ?int $servings = null;
+
     public function __construct()
     {
         $this->recipeIngredients = new ArrayCollection();
@@ -150,6 +153,18 @@ class Recipe
         if ($this->categories->removeElement($category)) {
             $category->removeRecipe($this);
         }
+
+        return $this;
+    }
+
+    public function getServings(): ?int
+    {
+        return $this->servings;
+    }
+
+    public function setServings(int $servings): static
+    {
+        $this->servings = $servings;
 
         return $this;
     }
