@@ -37,6 +37,18 @@ class Recipe
     #[ORM\Column]
     private ?int $servings = null;
 
+    #[ORM\Column]
+    private ?float $proteins = null;
+
+    #[ORM\Column]
+    private ?float $fats = null;
+
+    #[ORM\Column]
+    private ?float $carbohydrates = null;
+
+    #[ORM\Column]
+    private ?float $totalEnergy = null;
+
     public function __construct()
     {
         $this->recipeIngredients = new ArrayCollection();
@@ -168,4 +180,69 @@ class Recipe
 
         return $this;
     }
+
+    /**
+     * @return float|null
+     */
+    public function getProteins(): ?float
+    {
+        return $this->proteins;
+    }
+
+    /**
+     * @param float|null $proteins
+     */
+    public function setProteins(?float $proteins): void
+    {
+        $this->proteins = $proteins;
+    }
+
+    /**
+     * @return float|null
+     */
+    public function getFats(): ?float
+    {
+        return $this->fats;
+    }
+
+    /**
+     * @param float|null $fats
+     */
+    public function setFats(?float $fats): void
+    {
+        $this->fats = $fats;
+    }
+
+    /**
+     * @return float|null
+     */
+    public function getCarbohydrates(): ?float
+    {
+        return $this->carbohydrates;
+    }
+
+    /**
+     * @param float|null $carbohydrates
+     */
+    public function setCarbohydrates(?float $carbohydrates): void
+    {
+        $this->carbohydrates = $carbohydrates;
+    }
+
+    /**
+     * @return float|null
+     */
+    public function getTotalEnergy(): ?float
+    {
+        return $this->totalEnergy;
+    }
+
+    /**
+     * @param float|null $totalEnergy
+     */
+    public function setTotalEnergy(?float $totalEnergy): void
+    {
+        $this->totalEnergy = $totalEnergy;
+    }
+
 }

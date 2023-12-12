@@ -22,6 +22,7 @@ class PostCrudController extends AbstractCrudController
         return Post::class;
     }
 
+
     public function createEntity(string $entityFqcn)
     {
         $entity = parent::createEntity($entityFqcn);
