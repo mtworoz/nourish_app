@@ -71,9 +71,15 @@ class RecipeCrudController extends AbstractCrudController
     {
         $viewOnSiteAction = Action::new('viewOnSite', 'Zobacz na stronie', 'fa fa-eye')
             ->linkToRoute('single_post', function (Recipe $recipe) {
-                return [
-                    'id' => $recipe->getPost()->getId(),
-                ];
+                if ($recipe->getPost() !== null) {
+                    return [
+                        'id' => $recipe->getPost()->getId(),
+                    ];
+                }
+                return null;
+            })
+            ->displayIf(function (Recipe $recipe) {
+                return $recipe->getPost() !== null;
             });
         return parent::configureActions($actions)
             ->add(Crud::PAGE_EDIT, $viewOnSiteAction);

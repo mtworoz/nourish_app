@@ -25,7 +25,7 @@ class Recipe
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $instruction = null;
 
-    #[ORM\OneToMany(mappedBy: 'recipe', targetEntity: RecipeIngredient::class)]
+    #[ORM\OneToMany(mappedBy: 'recipe', targetEntity: RecipeIngredient::class, cascade: ['persist', 'remove'])]
     private Collection $recipeIngredients;
 
     #[ORM\Column(nullable: true)]

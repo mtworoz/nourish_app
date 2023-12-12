@@ -25,7 +25,7 @@ class Ingredient
     #[ORM\ManyToOne(inversedBy: 'ingredient')]
     private ?IngredientsCategory $ingredientsCategory = null;
 
-    #[ORM\OneToMany(mappedBy: 'ingredient', targetEntity: RecipeIngredient::class)]
+    #[ORM\OneToMany(mappedBy: 'ingredient', targetEntity: RecipeIngredient::class, cascade: ['persist', 'remove'])]
     private Collection $recipeIngredients;
 
     #[ORM\Column]
