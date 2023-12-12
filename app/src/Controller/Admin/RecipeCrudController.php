@@ -57,6 +57,30 @@ class RecipeCrudController extends AbstractCrudController
                 ->setColumns(12)
                 ->setFormTypeOption('multiple', true)
                 ->setFormTypeOption('by_reference', false),
+            NumberField::new('proteins')
+                ->setLabel('Białko')
+                ->hideOnIndex()
+                ->setColumns(3)
+                ->setDisabled()
+                ->setRequired(false),
+            NumberField::new('carbohydrates')
+                ->setLabel('Węglowodany')
+                ->hideOnIndex()
+                ->setColumns(3)
+                ->setDisabled()
+                ->setRequired(false),
+            NumberField::new('fats')
+                ->setLabel('Tłuszcze')
+                ->hideOnIndex()
+                ->setColumns(3)
+                ->setDisabled()
+                ->setRequired(false),
+            NumberField::new('totalEnergy')
+                ->setLabel('Wartość energetyczna')
+                ->hideOnIndex()
+                ->setColumns(3)
+                ->setDisabled()
+                ->setRequired(false),
             CollectionField::new('recipeIngredients')
                 ->useEntryCrudForm()
                 ->setFormTypeOption('by_reference', false)
