@@ -9,7 +9,7 @@ use App\Entity\Recipe;
 
 class RecipeSubscriber implements EventSubscriberInterface
 {
-    public static function getSubscribedEvents()
+    public static function getSubscribedEvents() : array
     {
         return [
             BeforeEntityPersistedEvent::class => ['setNutrientsOnPersist'],
