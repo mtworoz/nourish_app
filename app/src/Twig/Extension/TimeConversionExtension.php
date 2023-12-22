@@ -7,14 +7,14 @@ use Twig\TwigFilter;
 
 class TimeConversionExtension extends AbstractExtension
 {
-    public function getFilters()
+    public function getFilters() : array
     {
         return [
             new TwigFilter('convert_time', [$this, 'convertTime']),
         ];
     }
 
-    public function convertTime($minutes)
+    public function convertTime($minutes) : string
     {
         $hours = floor($minutes / 60);
         $minutes %= 60;
