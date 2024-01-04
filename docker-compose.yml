@@ -6,29 +6,15 @@ networks:
 
 services:
 
-  #nginx
-  nginx-serivice:
-    image:  nginx:stable-alpine
-    container_name: nginx-container
-    ports:
-      - "8080:80"
-    volumes:
-      - ./app:/var/www/project
-      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
-    depends_on:
-      - php82-service
-      - mysql8-service
-    networks:
-      - blog_network
-
   #php
   php82-service:
     build:
       context: .
       dockerfile: ./php/Dockerfile
     container_name: php82-container
+    hostname: nourishnook.mtworoz.com
     ports:
-      - "9000:9000"
+      - "8080:80"
     volumes:
       - ./app:/var/www/project
     networks:
@@ -49,7 +35,6 @@ services:
       MYSQL_PASSWORD: secret
     networks:
       - blog_network
-
 
   #node
   node-service:
