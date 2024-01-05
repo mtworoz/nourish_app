@@ -1,0 +1,27 @@
+{% extends "elements/ebooks/base.html.twig" %}
+
+{% block body %}
+
+<div class="container mt-5">
+    <h1 class="text-center">Spis treści</h1>
+    <hr>
+
+    <ul class="list-group">
+        {% for chapter in ebook.chapters %}
+            <li class="list-group-item">
+                <a class="p-3" href="#{{ chapter.title|replace({' ': '-'}) }}">
+                    {{ chapter.title }}
+                </a>
+                {% if chapter.recipes is not empty %}
+                    <ul class="list-group ml-3">
+                        {% for recipe in chapter.recipes %}
+                            <li class="list-group-item list-group-item-secondary">{{ recipe }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+            </li>
+        {% endfor %}
+    </ul>
+</div>
+
+{% endblock %}

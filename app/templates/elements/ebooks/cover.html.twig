@@ -1,0 +1,48 @@
+{% extends "elements/ebooks/base.html.twig" %}
+
+    {% block head %}
+        {% block stylesheets %}
+            {{ encore_entry_link_tags('styles') }}
+
+            <style>
+                body {
+                    margin: 0;
+                    padding: 0;
+                    height: 100vh;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    background: url('{{ asset('ebook_covers/' ~ ebook.image) }}') center center no-repeat;
+                    background-size: cover;
+                }
+
+                .overlay {
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    background: rgba(0, 0, 0, 0.5);
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    color: #fff;
+                    text-align: center;
+                }
+
+                .title {
+                    font-size: 36px;
+                    font-weight: bold;
+                }
+            </style>
+        {% endblock %}
+    {% endblock %}
+
+
+{% block body %}
+    <div class="overlay">
+        <div class="container">
+            <h1 class="title">{{ ebook.title }}</h1>
+        </div>
+    </div>
+{% endblock %}
