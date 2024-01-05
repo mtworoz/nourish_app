@@ -5,7 +5,8 @@ RUN apt-get update && apt-get install -y zlib1g-dev g++ git libicu-dev zip libzi
     && pecl install apcu \
     && docker-php-ext-enable apcu \
     && docker-php-ext-configure zip \
-    && docker-php-ext-install zip
+    && docker-php-ext-install zip \
+    && apt-get install -y wkhtmltopdf
 
 RUN a2enmod rewrite
 COPY apache-config.conf /etc/apache2/sites-available/000-default.conf
