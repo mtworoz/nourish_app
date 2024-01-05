@@ -2,8 +2,6 @@
 
 namespace App\Controller;
 
-use App\Service\ApiIngredientsService;
-use App\Repository\CategoryRepository;
 use App\Repository\PostRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
