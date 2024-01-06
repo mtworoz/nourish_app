@@ -2,6 +2,7 @@
 
 namespace App\Controller\Admin;
 
+use App\Entity\Ebook;
 use App\Entity\Ingredient;
 use App\Entity\Post;
 use App\Entity\Recipe;
@@ -47,5 +48,7 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linkToCrud('Posty', 'fas fa-list', Post::class);
         yield MenuItem::linkToCrud('Przepisy', 'fas fa-list', Recipe::class);
         yield MenuItem::linkToCrud('Składniki', 'fas fa-list', Ingredient::class);
+        yield MenuItem::linkToCrud('Ebooki', 'fas fa-book',Ebook::class);
+        yield MenuItem::linkToLogout('Wyloguj', 'fas fa-sign-out-alt');
     }
 }

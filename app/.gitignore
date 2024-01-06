@@ -244,8 +244,6 @@ fabric.properties
 # End of https://www.toptal.com/developers/gitignore/api/symfony,phpstorm,phpstorm+all
 ###> symfony/webpack-encore-bundle ###
 /node_modules/
-/public/build/
-/public/bundles/
 npm-debug.log
 yarn-error.log
 ###< symfony/webpack-encore-bundle ###
