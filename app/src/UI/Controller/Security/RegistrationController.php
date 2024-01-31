@@ -2,7 +2,7 @@
 
 namespace App\UI\Controller\Security;
 
-use App\Application\Security\AppCustomAuthenticator;
+use App\Application\Service\Security\AppCustomAuthenticator;
 use App\Domain\Entity\User\User;
 use App\UI\Form\RegistrationFormType;
 use Doctrine\ORM\EntityManagerInterface;
