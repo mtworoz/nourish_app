@@ -2,7 +2,7 @@
 
 namespace App\UI\Controller;
 
-use App\Domain\Repository\Blog\PostRepositoryInterface;
+use App\Application\Query\Blog\PostQueryService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -10,9 +10,9 @@ use Symfony\Component\Routing\Annotation\Route;
 class DefaultController extends AbstractController
 {
     #[Route('/', name: 'homepage')]
-    public function homepage(PostRepositoryInterface $postRepository): Response
+    public function homepage(PostQueryService $postQueryService): Response
     {
-        $recentPosts = $postRepository->getRecentPosts(6);
+        $recentPosts = $postQueryService->getRecentPosts(6);
         return $this->render('pages/homepage.html.twig', [
             'posts' => $recentPosts,
         ]);

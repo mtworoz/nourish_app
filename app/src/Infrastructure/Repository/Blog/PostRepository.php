@@ -33,9 +33,4 @@ class PostRepository extends ServiceEntityRepository implements PostRepositoryIn
         $this->_em->remove($post);
         $this->_em->flush();
     }
-
-    public function getRecentPosts(int $limit): array
-    {
-        return $this->findBy([], ['date' => 'DESC'], $limit);
-    }
 }

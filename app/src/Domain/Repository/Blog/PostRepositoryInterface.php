@@ -17,6 +17,4 @@ interface PostRepositoryInterface
     public function save(Post $post);
 
     public function remove(Post $post);
-
-    public function getRecentPosts(int $limit): array;
 }
