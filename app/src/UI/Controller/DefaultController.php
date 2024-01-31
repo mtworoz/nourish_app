@@ -2,7 +2,7 @@
 
 namespace App\UI\Controller;
 
-use App\Infrastructure\Repository\Blog\PostRepository;
+use App\Domain\Repository\Blog\PostRepositoryInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -10,11 +10,11 @@ use Symfony\Component\Routing\Annotation\Route;
 class DefaultController extends AbstractController
 {
     #[Route('/', name: 'homepage')]
-    public function homepage(PostRepository $postRepository) : Response
+    public function homepage(PostRepositoryInterface $postRepository): Response
     {
-        $recentPosts = $postRepository->findBy([],['date' => 'DESC'],6);
+        $recentPosts = $postRepository->getRecentPosts(6);
         return $this->render('pages/homepage.html.twig', [
-            'posts' => $recentPosts
+            'posts' => $recentPosts,
         ]);
     }
 
