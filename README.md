@@ -44,4 +44,3 @@ We welcome contributions to enhance Nourish Nook.
 
 This project is licensed under the MIT License. Feel free to use, modify, and distribute it according to the terms.
 
-Happy Cooking! 🍲👩‍🍳👨‍🍳
