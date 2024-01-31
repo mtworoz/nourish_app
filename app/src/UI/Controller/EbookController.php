@@ -10,11 +10,8 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class EbookController extends AbstractController
 {
-    private EbookExportService $ebookExportService;
-
-    public function __construct(EbookExportService $ebookExportService)
+    public function __construct(private EbookExportService $ebookExportService)
     {
-        $this->ebookExportService = $ebookExportService;
     }
 
     #[Route('/ebook/{id}', name: 'ebook')]
