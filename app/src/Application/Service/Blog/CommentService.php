@@ -2,40 +2,20 @@
 
 namespace App\Application\Service\Blog;
 
+use App\Domain\Entity\Blog\Comment;
 use App\Domain\Entity\Blog\Post;
-use App\UI\Form\WriteCommentFormType;
-use Symfony\Component\Form\FormFactoryInterface;
-use Symfony\Component\Form\FormInterface;
-use Symfony\Component\HttpFoundation\Request;
-use Doctrine\ORM\EntityManagerInterface;
+use App\Domain\Repository\Blog\CommentRepositoryInterface;
 
 class CommentService
 {
-    private FormFactoryInterface $formFactory;
-    private EntityManagerInterface $entityManager;
-
-    public function __construct(FormFactoryInterface $formFactory, EntityManagerInterface $entityManager)
+    public function __construct(private CommentRepositoryInterface $commentRepository)
     {
-        $this->formFactory = $formFactory;
-        $this->entityManager = $entityManager;
     }
 
-    public function processCommentForm(Request $request, Post $post): ?FormInterface
+    public function processComment(Comment $comment, Post $post): void
     {
-        $commentForm = $this->formFactory->create(WriteCommentFormType::class);
-        $commentForm->handleRequest($request);
-
-        if ($commentForm->isSubmitted() && $commentForm->isValid()) {
-            $comment = $commentForm->getData();
             $comment->setPost($post);
             $comment->setDate(new \DateTime);
-
-            $this->entityManager->persist($comment);
-            $this->entityManager->flush();
-
-            return null;
-        }
-
-        return $commentForm;
+            $this->commentRepository->save($comment);
     }
 }

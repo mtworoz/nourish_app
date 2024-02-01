@@ -2,7 +2,7 @@
 
 namespace App\UI\Controller;
 
-use App\Application\Service\Blog\CommentService;
+use App\Application\FormHandling\CommentFormHandler;
 use App\Domain\Repository\Blog\PostRepositoryInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\FormInterface;
@@ -15,7 +15,7 @@ class PostController extends AbstractController
 {
     public function __construct(
         private PostRepositoryInterface $postRepository,
-        private CommentService $commentService
+        private CommentFormHandler $commentFormHandler
     )
     {
     }
@@ -29,7 +29,7 @@ class PostController extends AbstractController
             throw $this->createNotFoundException('Post not found');
         }
 
-        $commentFormOrSuccess = $this->commentService->processCommentForm($request, $post);
+        $commentFormOrSuccess = $this->commentFormHandler->handleCommentForm($request, $post);
 
         if ($commentFormOrSuccess instanceof FormInterface){
             return $this->render('pages/post.html.twig', [
