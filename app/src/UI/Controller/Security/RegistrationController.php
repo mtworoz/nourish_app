@@ -2,6 +2,7 @@
 
 namespace App\UI\Controller\Security;
 
+use App\Application\FormHandling\RegistrationFormHandler;
 use App\Application\Service\Security\AppCustomAuthenticator;
 use App\Application\Service\Security\RegistrationService;
 use App\Domain\Repository\User\UserRepositoryInterface;
@@ -16,26 +17,20 @@ class RegistrationController extends AbstractController
 {
     #[Route('/register', name: 'app_register')]
     public function register(
-        Request $request,
-        RegistrationService $registrationService,
+        Request                    $request,
+        RegistrationFormHandler    $registrationFormHandler,
         UserAuthenticatorInterface $userAuthenticator,
-        AppCustomAuthenticator $authenticator,
-        UserRepositoryInterface $userRepository
+        AppCustomAuthenticator     $authenticator,
+        UserRepositoryInterface    $userRepository
     ): Response
     {
         $user = $userRepository->createUser();
         $form = $this->createForm(RegistrationFormType::class, $user);
-        $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $plainPassword = $form->get('plainPassword')->getData();
-            $registrationService->registerUser($user, $plainPassword);
+        if ($registrationFormHandler->handleRegistrationForm($request, $form, $user)) {
 
-            return $userAuthenticator->authenticateUser(
-                $user,
-                $authenticator,
-                $request
-            );
+            return $userAuthenticator->authenticateUser($user, $authenticator, $request);
+
         }
 
         return $this->render('security/register.html.twig', [
