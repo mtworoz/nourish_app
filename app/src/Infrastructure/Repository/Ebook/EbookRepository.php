@@ -5,6 +5,7 @@ namespace App\Infrastructure\Repository\Ebook;
 use App\Domain\Entity\Ebook\Ebook;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use App\Domain\Repository\Ebook\EbookRepositoryInterface;
 
 /**
  * @extends ServiceEntityRepository<Ebook>
@@ -14,35 +15,22 @@ use Doctrine\Persistence\ManagerRegistry;
  * @method Ebook[]    findAll()
  * @method Ebook[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class EbookRepository extends ServiceEntityRepository
+class EbookRepository extends ServiceEntityRepository implements EbookRepositoryInterface
 {
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Ebook::class);
     }
 
-//    /**
-//     * @return Ebook[] Returns an array of Ebook objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('e')
-//            ->andWhere('e.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('e.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
+    public function save(Ebook $ebook)
+    {
+        $this->_em->persist($ebook);
+        $this->_em->flush();
+    }
 
-//    public function findOneBySomeField($value): ?Ebook
-//    {
-//        return $this->createQueryBuilder('e')
-//            ->andWhere('e.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->getQuery()
-//            ->getOneOrNullResult()
-//        ;
-//    }
+    public function remove(Ebook $ebook)
+    {
+        $this->_em->remove($ebook);
+        $this->_em->flush();
+    }
 }

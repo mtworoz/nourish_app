@@ -2,41 +2,48 @@
 
 namespace App\UI\Controller;
 
-use App\Domain\Entity\Blog\Comment;
-use App\Domain\Entity\Blog\Post;
-use App\Infrastructure\Repository\Blog\PostRepository;
-use App\UI\Form\WriteCommentFormType;
-use Doctrine\ORM\EntityManagerInterface;
+use App\Application\FormHandling\CommentFormHandler;
+use App\Domain\Repository\Blog\PostRepositoryInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use function dd;
+use JetBrains\PhpStorm\NoReturn;
 
 class PostController extends AbstractController
 {
-    #[Route('/post/{id}', name: 'single_post')]
-    public function showPost(Post $post, Request $request, EntityManagerInterface $em): Response
+    public function __construct(
+        private PostRepositoryInterface $postRepository,
+        private CommentFormHandler $commentFormHandler
+    )
     {
-        $commentForm = $this->createForm(WriteCommentFormType::class);
-        $commentForm->handleRequest($request);
-        if($commentForm->isSubmitted() && $commentForm->isValid()){
-            /** @var Comment $comment */
-            $comment = $commentForm->getData();
-            $comment->setPost($post);
-            $comment->setDate(new \DateTime);
-            $em->persist($comment);
-            $em->flush();
-        }
-        return $this->render('pages/post.html.twig', [
-            'post' => $post,
-            'commentForm' => $commentForm
-        ]);
     }
 
-    #[Route('/posts', name: 'allPosts')]
-    public function showAllPosts(PostRepository $postRepository){
-        dd($postRepository->findAll());
+    #[Route('/post/{id}', name: 'single_post')]
+    public function showPost(int $id, Request $request): Response
+    {
+        $post = $this->postRepository->find($id);
+
+        if (!$post) {
+            throw $this->createNotFoundException('Post not found');
+        }
+
+        $commentFormOrSuccess = $this->commentFormHandler->handleCommentForm($request, $post);
+
+        if ($commentFormOrSuccess instanceof FormInterface){
+            return $this->render('pages/post.html.twig', [
+                'post' => $post,
+                'commentForm' => $commentFormOrSuccess->createView(),
+            ]);
+        }
+
+        return $this->redirectToRoute('single_post', ['id' => $post->getId()]);
+    }
+
+    #[NoReturn] #[Route('/posts', name: 'allPosts')]
+    public function showAllPosts(){
+        dd($this->postRepository->findAll());
     }
 
 }

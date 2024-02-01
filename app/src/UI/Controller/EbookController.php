@@ -2,53 +2,32 @@
 
 namespace App\UI\Controller;
 
-use App\Domain\Entity\Ebook\Ebook;
-use Knp\Snappy\Pdf;
+use App\Application\Service\Ebook\EbookExportService;
+use App\Domain\Repository\Ebook\EbookRepositoryInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\KernelInterface;
 use Symfony\Component\Routing\Annotation\Route;
-use Twig\Environment;
 
 class EbookController extends AbstractController
 {
-
-    private Environment $twig;
-    private Pdf $pdf;
-    private Filesystem $filesystem;
-
-    public function __construct(Environment $twig, Pdf $pdf, Filesystem $filesystem)
+    public function __construct(
+        private EbookExportService $ebookExportService,
+        private EbookRepositoryInterface $ebookRepository
+    )
     {
-        $this->twig = $twig;
-        $this->pdf = $pdf;
-        $this->filesystem = $filesystem;
     }
 
     #[Route('/ebook/{id}', name: 'ebook')]
-    public function showEbook(Ebook $ebook, KernelInterface $kernel)
+    public function showEbook(int $id): Response
     {
-        $html = $this->twig->render('elements/ebooks/cover.html.twig', [
-            'ebook' => $ebook
-        ]);
+        $ebook = $this->ebookRepository->find($id);
 
-        $projectPath = $kernel->getProjectDir();
-
-        $targetDirectory = $projectPath . '/public/ebooks';
-
-        $pdf = $this->pdf->getOutputFromHtml($html);
-
-        $fileName = 'nazwa_pliku.pdf';
-
-        $targetFilePath = $targetDirectory . '/' . $fileName;
-
-        if (!$this->filesystem->exists($targetDirectory)) {
-            $this->filesystem->mkdir($targetDirectory);
+        if (!$ebook) {
+            throw $this->createNotFoundException('Ebook not found');
         }
 
-        $this->filesystem->dumpFile($targetFilePath, $pdf);
+        $this->ebookExportService->exportEbookToPdf($ebook);
 
         return new Response('ok');
     }
-
 }
